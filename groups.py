@@ -16,6 +16,7 @@ class Group:
         #print column headers
         for header in self.elements:
             cayley += str(header) + "\t"
+        #figure out how long of a separator between column headers and table to print
         equals_length = len(cayley) - 4 - len(self.elements)
         cayley += "\n===="
         for i in range(0, equals_length):
