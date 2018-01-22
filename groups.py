@@ -33,8 +33,8 @@ class Group:
 def mod_addition(e1, e2):
     return (e1 + e2) % 5
 
-Z4 = Group([0,1,2,3,4], mod_addition)
-print("1 o 3 = " + str(Z4.compose(1,3)))
+Z5 = Group([0,1,2,3,4], mod_addition)
+print("1 o 3 = " + str(Z5.compose(1,3)))
 print()
-print(Z4.cayley_table())
+print(Z5.cayley_table())
 
