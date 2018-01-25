@@ -12,34 +12,46 @@ class Group:
             raise Exception('Closure does not hold.')
         return value
 
+    #cayley table as multi-dem list
     def cayley_table(self):
         return [ [ self.operation(a, b) for b in self.elements ] for a in self.elements ]
+        
+    def get_identity(self):
+        for element in self.elements:
+            for test_element in self.elements:
+                if not (self.compose(element, test_element) == test_element):
+                    break
+            return element
+        #shouldn't reach
+        raise Exception('No identity, not a group')
 
+    #string representation of a group (shows cayley table)
     def __repr__(self):
-        cayley = "o | " #top corner
+        cayley = 'o | ' #top corner
         #print column headers
         for header in self.elements:
-            cayley += str(header) + "\t"
+            cayley += str(header) + '\t'
         #figure out how long of a separator between column headers and table to print
         equals_length = len(cayley) - 4 - len(self.elements)
-        cayley += "\n===="
+        cayley += '\n----'
         for i in range(0, equals_length):
-            cayley += "=\t"
-        cayley += "\n"
+            cayley += '-\t'
+        cayley += '\n'
         #print element table
         for row in self.elements:
-            line = (str(row) + " | ")
+            line = (str(row) + ' | ')
             for column in self.elements:
-                line += str(self.compose(row,column)) + "\t"
-            cayley += line + "\n"
+                line += str(self.compose(row,column)) + '\t'
+            cayley += line + '\n'
         return cayley
 
 #order matters, the operation is done from right to left
 def mod_addition(e1, e2):
     return (e2 + e1) % 5
 
+print('====\nZ_5:\n====\n')
 Z5 = Group([0,1,2,3,4], mod_addition)
-print("1 o 3 = " + str(Z5.compose(1,3)))
+print('1 o 3 = ' + str(Z5.compose(1,3)))
 print()
 print(Z5)
-
+print('Identity: ' + str(Z5.get_identity()))
