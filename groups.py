@@ -1,3 +1,5 @@
+from math import gcd
+
 class Group:
     def __init__(self, elements, operation):
         self.elements = elements
@@ -16,7 +18,7 @@ class Group:
     def cayley_table(self):
         return [ [ self.operation(a, b) for b in self.elements ] for a in self.elements ]
         
-    def get_identity(self):
+    def identity(self):
         for element in self.elements:
             for test_element in self.elements:
                 if not (self.compose(element, test_element) == test_element):
@@ -24,6 +26,13 @@ class Group:
             return element
         #shouldn't reach
         raise Exception('No identity, not a group')
+
+    def inverse(self, e):
+        for element in self.elements:
+            if self.compose(e, element) == self.identity():
+                return element
+        #shouldn't reach
+        raise Exception('No inverse for {0}, not a group'.format(e)) 
 
     #string representation of a group (shows cayley table)
     def __repr__(self):
@@ -45,13 +54,16 @@ class Group:
             cayley += line + '\n'
         return cayley
 
-#order matters, the operation is done from right to left
-def mod_addition(e1, e2):
-    return (e2 + e1) % 5
-
-print('====\nZ_5:\n====\n')
-Z5 = Group([0,1,2,3,4], mod_addition)
-print('1 o 3 = ' + str(Z5.compose(1,3)))
-print()
-print(Z5)
-print('Identity: ' + str(Z5.get_identity()))
+if __name__ == '__main__':
+    #order matters, the operation is done from right to left
+    def Z(n):
+        elements = [e for e in range(0,n)]
+        return Group(elements, lambda e1, e2: ((e2 + e1) % n))
+    print(Z(5))
+    def coprime(a,b):
+        return gcd(a,b) == 1
+    def U(n):
+        elements = [e for e in range(1,n) if coprime(e,n)]
+        return Group(elements, lambda e1, e2: ((e2 * e1) % n))
+    print(U(7))
+    print(U(13).inverse(3))
