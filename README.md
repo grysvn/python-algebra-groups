@@ -1,1 +1,3 @@
 This project was used as a tool to familiarize myself with very basic group theory (for abstract algebra/MA407@ncsu) and python (for programming languages and modeling/CSC495-002@ncsu) during the 2018 spring semester. It's far from a complete exploration of either, but it was a fun project and helped me understand some concepts. If you'd like to contribute I'll add some things in the issues section that could be worked on for practice with groups, python, and open-source in general.
+
+To run this file, simply open a terminal/cmd instance, change to the directory it's stored at, and type `python groups.py`.
