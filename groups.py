@@ -55,11 +55,13 @@ class Group:
         return cayley
 
 if __name__ == '__main__':
+
     #order matters, the operation is done from right to left
     def Z(n):
         elements = [e for e in range(0,n)]
         return Group(elements, lambda e1, e2: ((e2 + e1) % n))
     print(Z(5))
+
     def coprime(a,b):
         return gcd(a,b) == 1
     def U(n):
@@ -67,3 +69,16 @@ if __name__ == '__main__':
         return Group(elements, lambda e1, e2: ((e2 * e1) % n))
     print(U(7))
     print(U(13).inverse(3))
+
+    p0 = [[1,2,3],[1,2,3]]
+    p1 = [[1,2,3],[2,3,1]]
+    p2 = [[1,2,3],[3,1,2]]
+    p3 = [[1,2,3],[1,3,2]]
+    p4 = [[1,2,3],[3,2,1]]
+    p5 = [[1,2,3],[2,1,3]]
+    p = [p0,p1,p2,p3,p4,p5]
+    #e2 = p1 : 1>2 2>3 3>1
+    #e1 = p2 : 1>3 2>1 3>2
+
+    S3 = Group(p, lambda e1,e2: [[1,2,3], [ e1[1][e1[0].index(i)] for i in e2[1] ] ])
+    print(S3)
