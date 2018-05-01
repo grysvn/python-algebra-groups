@@ -87,24 +87,28 @@ class Group:
             cayley += line + '\n' + row_sepr('-')
         return cayley
 
+
+def coprime(a,b):
+    return gcd(a,b) == 1
+def U(n):
+    elements = [e for e in range(1,n) if coprime(e,n)]
+    return Group(elements, lambda e1, e2: ((e2 * e1) % n), {e : e for e in elements})
+
+
+def Z(n):
+    elements = [e for e in range(0,n)]
+    return Group(elements, lambda e1, e2: ((e2 + e1) % n), {e : e for e in elements})
+
 if __name__ == '__main__':
     ###########
     #group Z_n#
     ###########
-    def Z(n):
-        elements = [e for e in range(0,n)]
-        return Group(elements, lambda e1, e2: ((e2 + e1) % n), {e : e for e in elements})
     print("Z_5")
     print(Z(5))
 
     ###########
     #group U_n#
     ###########
-    def coprime(a,b):
-        return gcd(a,b) == 1
-    def U(n):
-        elements = [e for e in range(1,n) if coprime(e,n)]
-        return Group(elements, lambda e1, e2: ((e2 * e1) % n), {e : e for e in elements})
     print("U_8")
     print(U(8))
 
